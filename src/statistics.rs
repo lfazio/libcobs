@@ -26,3 +26,23 @@ impl fmt::Display for CobsStatistics {
         write!(f, "<raw={}, encoded={}>", self.raw, self.encoded)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_stat_update() {
+        let mut s = CobsStatistics::new();
+
+        s.update(1, 1);
+        assert_eq!(s.get(), (1, 1));
+        s.update(1, 1);
+        assert_eq!(s.get(), (2, 2));
+
+        s.update(1, 1);
+        assert_eq!(s.get(), (3, 3));
+        s.update(1, 1);
+        assert_eq!(s.get(), (4, 4));
+    }
+}
